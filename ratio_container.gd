@@ -13,11 +13,11 @@ func _enter_tree() -> void:
 	if not resized.is_connected(_on_resized):
 		resized.connect(_on_resized)
 
+func _ready() -> void:
+	_on_resized()
+
 func _on_resized() -> void:
 	if last_size.is_equal_approx(size): return
-
-	var height := size.x * ratio
-	size.y = height
-	custom_minimum_size.y = height
-
 	last_size = size
+	custom_minimum_size.y = size.x * ratio
+	size.y = size.x * ratio
