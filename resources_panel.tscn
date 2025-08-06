@@ -1,8 +1,6 @@
-[gd_scene load_steps=6 format=4 uid="uid://ccraopnohf8uh"]
+[gd_scene load_steps=4 format=4 uid="uid://ccraopnohf8uh"]
 
 [ext_resource type="PackedScene" uid="uid://2mt7ksm42u1t" path="res://asset_card.tscn" id="1_kdkql"]
-[ext_resource type="Script" uid="uid://bt7a50j6r5q5v" path="res://resources_panel.gd" id="1_n3y1t"]
-[ext_resource type="Script" uid="uid://b460q78dxoqtq" path="res://ratio_container.gd" id="1_wpkl3"]
 
 [sub_resource type="Image" id="Image_wpkl3"]
 data = {
@@ -653,7 +651,6 @@ tab_alignment = 1
 current_tab = 1
 drag_to_rearrange_enabled = true
 tab_focus_mode = 0
-script = ExtResource("1_n3y1t")
 
 [node name="Sheets" type="Button" parent="."]
 unique_name_in_owner = true
@@ -690,40 +687,20 @@ layout_mode = 2
 size_flags_horizontal = 3
 columns = 2
 
-[node name="RatioControl" type="Container" parent="Assets/ScrollContainer/MarginContainer/GridContainer"]
+[node name="AssetCard" parent="Assets/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource("1_kdkql")]
 custom_minimum_size = Vector2(0, 142)
 layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("1_wpkl3")
 
-[node name="AssetCard" parent="Assets/ScrollContainer/MarginContainer/GridContainer/RatioControl" instance=ExtResource("1_kdkql")]
-layout_mode = 2
-
-[node name="RatioControl2" type="Container" parent="Assets/ScrollContainer/MarginContainer/GridContainer"]
+[node name="AssetCard2" parent="Assets/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource("1_kdkql")]
 custom_minimum_size = Vector2(0, 142)
 layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("1_wpkl3")
 
-[node name="AssetCard" parent="Assets/ScrollContainer/MarginContainer/GridContainer/RatioControl2" instance=ExtResource("1_kdkql")]
-layout_mode = 2
-
-[node name="RatioContainer3" type="Container" parent="Assets/ScrollContainer/MarginContainer/GridContainer"]
+[node name="AssetCard3" parent="Assets/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource("1_kdkql")]
 custom_minimum_size = Vector2(0, 142)
 layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("1_wpkl3")
 
-[node name="AssetCard" parent="Assets/ScrollContainer/MarginContainer/GridContainer/RatioContainer3" instance=ExtResource("1_kdkql")]
-layout_mode = 2
-
-[node name="RatioContainer4" type="Container" parent="Assets/ScrollContainer/MarginContainer/GridContainer"]
+[node name="AssetCard4" parent="Assets/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource("1_kdkql")]
 custom_minimum_size = Vector2(0, 142)
-layout_mode = 2
-size_flags_horizontal = 3
-script = ExtResource("1_wpkl3")
-
-[node name="AssetCard" parent="Assets/ScrollContainer/MarginContainer/GridContainer/RatioContainer4" instance=ExtResource("1_kdkql")]
 layout_mode = 2
 
 [node name="Scenes" type="Button" parent="."]
