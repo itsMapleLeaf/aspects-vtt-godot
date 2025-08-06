@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c0ohj8a240me3"]
 
-[ext_resource type="Script" uid="uid://ds6tdo1nfhtd5" path="res://viewport.gd" id="2_ka7wq"]
-[ext_resource type="Script" uid="uid://8506b65pmpuo" path="res://viewport_control.gd" id="4_ka7wq"]
+[ext_resource type="Script" uid="uid://ds6tdo1nfhtd5" path="res://stage.gd" id="2_ka7wq"]
+[ext_resource type="Script" uid="uid://8506b65pmpuo" path="res://stage_control.gd" id="4_ka7wq"]
 [ext_resource type="PackedScene" uid="uid://ccraopnohf8uh" path="res://resources_panel.tscn" id="4_v5vuv"]
 
 [node name="Room" type="Node2D"]
@@ -19,14 +19,13 @@ grow_vertical = 2
 custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 size_flags_horizontal = 0
-script = null
 
-[node name="ViewportControl" type="Control" parent="UI/HBoxContainer"]
+[node name="StageControl" type="Control" parent="UI/HBoxContainer"]
 z_index = -1
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("4_ka7wq")
 
-[node name="Viewport" type="Node2D" parent="UI/HBoxContainer/ViewportControl"]
+[node name="Stage" type="Node2D" parent="UI/HBoxContainer/StageControl"]
 unique_name_in_owner = true
 script = ExtResource("2_ka7wq")

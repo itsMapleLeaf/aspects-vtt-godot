@@ -1,5 +1,5 @@
 extends Node2D
-class_name RoomViewport
+class_name Stage
 
 @export var offset := Vector2()
 @export_range(1.0, 2.0, 0.01) var zoom_coefficient := 1.3
