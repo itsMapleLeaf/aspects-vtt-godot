@@ -694,7 +694,6 @@ custom_minimum_size = Vector2(0, 142)
 layout_mode = 2
 
 [node name="DragPreview" parent="Assets/ScrollContainer/MarginContainer/GridContainer/AssetCard" index="3"]
-layout_mode = 0
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 100.0

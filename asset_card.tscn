@@ -48,6 +48,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_default_cursor_shape = 13
 texture_pressed = SubResource("GradientTexture1D_8bsbi")
 texture_hover = SubResource("GradientTexture1D_l08au")
 ignore_texture_size = true
@@ -79,6 +80,7 @@ autowrap_mode = 2
 [node name="DragPreview" type="TextureRect" parent="."]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 offset_left = 1213.0
 offset_top = 281.5
 offset_right = 1313.0

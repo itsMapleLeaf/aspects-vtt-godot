@@ -20,6 +20,7 @@ offset_bottom = 82.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+mouse_default_cursor_shape = 13
 metadata/_edit_group_ = true
 
 [node name="Image" type="TextureRect" parent="Control"]
