@@ -4,7 +4,6 @@
 
 ## stage
 
-- click to select actor
 - left click drag to select multiple actors
 - drag selected actors
 - drag file on stage to import asset + add actor

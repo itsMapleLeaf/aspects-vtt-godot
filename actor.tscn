@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqj6n7i3i2p4l"]
+
+[ext_resource type="Script" uid="uid://de0p4qnuwg856" path="res://actor.gd" id="1_hr3hk"]
+[ext_resource type="Texture2D" uid="uid://kqqirfsu5wvy" path="res://assets/riley.png" id="2_oka2p"]
+
+[node name="Actor" type="Node2D"]
+script = ExtResource("1_hr3hk")
+
+[node name="Control" type="Panel" parent="."]
+clip_contents = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.0
+offset_top = -81.0
+offset_right = 68.0
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+metadata/_edit_group_ = true
+
+[node name="Image" type="TextureRect" parent="Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 63.7241
+grow_horizontal = 2
+mouse_filter = 2
+texture = ExtResource("2_oka2p")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="SelectionHighlight" type="ColorRect" parent="Control"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.758565, 0.318107, 0.521274, 0.341176)
+
+[connection signal="gui_input" from="Control" to="." method="_on_control_gui_input"]

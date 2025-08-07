@@ -4,20 +4,23 @@ extends Control
 
 
 func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		if event.button_mask & MOUSE_BUTTON_MASK_RIGHT:
-			stage.offset += event.relative
-			get_viewport().set_input_as_handled()
-
-	elif event is InputEventMouseButton:
+	if event is InputEventMouseButton:
 		if event.is_pressed():
 			match event.button_index:
+				MOUSE_BUTTON_LEFT:
+					stage.deselect_actors()
+					get_viewport().set_input_as_handled()
 				MOUSE_BUTTON_WHEEL_UP:
 					stage.update_zoom(1, event.position)
 					get_viewport().set_input_as_handled()
 				MOUSE_BUTTON_WHEEL_DOWN:
 					stage.update_zoom(-1, event.position)
 					get_viewport().set_input_as_handled()
+
+	elif event is InputEventMouseMotion:
+		if event.button_mask & MOUSE_BUTTON_MASK_RIGHT:
+			stage.offset += event.relative
+			get_viewport().set_input_as_handled()
 
 	elif event is InputEventPanGesture:
 		position += event.delta
@@ -33,7 +36,7 @@ func _can_drop_data(at_position: Vector2, data: Variant) -> bool:
 func _drop_data(at_position: Vector2, data_arg: Variant) -> void:
 	var data: AssetCard.DragData = data_arg
 
-	var sprite := Sprite2D.new()
-	sprite.texture = ImageTexture.create_from_image(data.asset.get_image())
-	stage.add_child(sprite)
-	sprite.position = (at_position - stage.offset) / stage.scale
+	stage.add_actor(
+		data.asset.get_image(),
+		(at_position - stage.offset) / stage.scale,
+	)
