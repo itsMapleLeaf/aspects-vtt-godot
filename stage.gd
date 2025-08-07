@@ -11,11 +11,7 @@ func add_actor(image: Image, position: Vector2) -> void:
 	add_child(actor)
 	actor.position = position
 	actor.image = image
-	actor.pressed.connect(_on_actor_pressed.bind(actor))
-
-
-func _on_actor_pressed(actor: Actor) -> void:
-	select_actors([actor])
+	actor.selected.connect(_on_actor_pressed.bind(actor))
 
 
 func select_actors(actors: Array[Actor]) -> void:

@@ -4,7 +4,7 @@ class_name Actor
 @onready var sprite: TextureRect = %Image
 @onready var selection_highlight: ColorRect = %SelectionHighlight
 
-signal pressed
+signal selected
 
 var is_selected := false:
 	set(new_is_selected):
@@ -21,5 +21,5 @@ var image: Image:
 func _on_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-			pressed.emit()
+			selected.emit()
 			get_viewport().set_input_as_handled()
