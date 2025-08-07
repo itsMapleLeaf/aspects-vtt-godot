@@ -1,7 +1,7 @@
 extends Node2D
 class_name Stage
 
-const Actor = preload("res://actor.tscn")
+const ActorScene = preload("res://actor.tscn")
 
 @export var offset := Vector2()
 @export_range(1.0, 2.0, 0.01) var zoom_coefficient := 1.3
@@ -30,7 +30,7 @@ func update_zoom(delta: float, pivot: Vector2) -> void:
 
 
 func add_actor(image: Image, position: Vector2) -> void:
-	var actor: Actor = Actor.instantiate()
+	var actor: Actor = ActorScene.instantiate()
 	add_child(actor)
 	actor.position = position
 	actor.image = image
