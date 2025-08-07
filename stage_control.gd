@@ -8,7 +8,7 @@ func _gui_input(event: InputEvent) -> void:
 		if event.is_pressed():
 			match event.button_index:
 				MOUSE_BUTTON_LEFT:
-					stage.deselect_actors()
+					stage.select_actors([])
 					get_viewport().set_input_as_handled()
 				MOUSE_BUTTON_WHEEL_UP:
 					stage.update_zoom(1, event.position)

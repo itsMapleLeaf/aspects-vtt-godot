@@ -38,15 +38,13 @@ func add_actor(image: Image, position: Vector2) -> void:
 
 
 func _on_actor_pressed(actor: Actor) -> void:
-	for other_actor in get_children():
-		if other_actor is Actor:
-			other_actor.selected = other_actor == actor
+	select_actors([actor])
 
 
-func deselect_actors() -> void:
+func select_actors(actors: Array[Actor]) -> void:
 	for actor in get_children():
 		if actor is Actor:
-			actor.selected = false
+			actor.is_selected = actors.has(actor)
 
 
 func _process(delta: float) -> void:

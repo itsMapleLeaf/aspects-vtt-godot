@@ -6,10 +6,10 @@ class_name Actor
 
 signal pressed
 
-var selected := false:
-	set(new_selected):
-		selected = new_selected
-		selection_highlight.modulate.a = 1 if new_selected else 0
+var is_selected := false:
+	set(new_is_selected):
+		is_selected = new_is_selected
+		selection_highlight.modulate.a = 1 if new_is_selected else 0
 
 var image: Image:
 	get:
