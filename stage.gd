@@ -3,17 +3,7 @@ class_name Stage
 
 var camera := StageCamera.new()
 
-var is_drag_selecting := false
-var drag_select_start := Vector2()
-var drag_select_end := Vector2()
-@onready var drag_selection: Control = %DragSelection
-
-var drag_select_rect: Rect2:
-	get:
-		return Rect2(
-			drag_select_start,
-			drag_select_end - drag_select_start,
-		).abs()
+@onready var drag_selection: DragSelection = %DragSelection
 
 func _process(delta: float) -> void:
 	transform = transform.interpolate_with(
@@ -22,14 +12,6 @@ func _process(delta: float) -> void:
 			.translated(camera.offset),
 		delta * camera.stiffness,
 	)
-
-	if is_drag_selecting:
-		drag_selection.visible = true
-		drag_selection.position = drag_select_rect.position
-		drag_selection.size = drag_select_rect.size
-	else:
-		drag_selection.visible = false
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	var handled := (
@@ -47,28 +29,26 @@ func _handle_mouse_drag_select(event: InputEvent) -> bool:
 	if event is InputEventMouseButton:
 		if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
 			select_actors([])
-			is_drag_selecting = true
-			drag_select_start = event.global_position
-			drag_select_end = event.global_position
+			drag_selection.start_selecting(event.global_position)
 			return true
 
 		if event.is_released() and event.button_index == MOUSE_BUTTON_LEFT:
-			is_drag_selecting = false
+			drag_selection.stop_selecting(event.global_position)
 			return true
 
-	if event is InputEventMouseMotion:
-		if event.button_mask & MOUSE_BUTTON_MASK_LEFT:
-			if is_drag_selecting:
-				drag_select_end = event.global_position
+	if (
+		event is InputEventMouseMotion
+		and event.button_mask & MOUSE_BUTTON_MASK_LEFT
+		and drag_selection.continue_selecting(event.global_position)
+	):
+		var selected_actors: Array[Actor] = []
+		for node in get_children():
+			if node is Actor and node.selection_hitbox.intersects(drag_selection.drag_select_rect):
+				selected_actors.append(node)
 
-				var selected_actors: Array[Actor] = []
-				for node in get_children():
-					if node is Actor and node.selection_hitbox.intersects(drag_select_rect):
-							selected_actors.append(node)
+		select_actors(selected_actors)
 
-				select_actors(selected_actors)
-
-			return true
+		return true
 
 	return false
 

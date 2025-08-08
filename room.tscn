@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0ohj8a240me3"]
+[gd_scene load_steps=6 format=3 uid="uid://c0ohj8a240me3"]
 
 [ext_resource type="Script" uid="uid://ds6tdo1nfhtd5" path="res://stage.gd" id="2_ka7wq"]
+[ext_resource type="Script" uid="uid://dfavdkp6h6jhx" path="res://drag_selection.gd" id="3_v5vuv"]
 [ext_resource type="Script" uid="uid://8506b65pmpuo" path="res://asset_drop_zone.gd" id="4_ka7wq"]
 [ext_resource type="PackedScene" uid="uid://ccraopnohf8uh" path="res://resources_panel.tscn" id="4_v5vuv"]
 
@@ -37,6 +38,7 @@ offset_top = 126.0
 offset_right = 703.0
 offset_bottom = 324.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_4o3f6")
+script = ExtResource("3_v5vuv")
 
 [node name="ResourcesPanel" parent="." instance=ExtResource("4_v5vuv")]
 custom_minimum_size = Vector2(360, 0)
