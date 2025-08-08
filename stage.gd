@@ -1,8 +1,6 @@
 extends Node2D
 class_name Stage
 
-const ActorScene = preload("res://actor.tscn")
-
 var camera := StageCamera.new()
 
 var is_drag_selecting := false
@@ -117,7 +115,7 @@ func _on_actor_pressed(actor: Actor) -> void:
 
 
 func add_actor(image: Image, at_position: Vector2) -> void:
-	var actor: Actor = ActorScene.instantiate()
+	var actor: Actor = preload("res://actor.tscn").instantiate()
 	add_child(actor)
 	actor.position = at_position
 	actor.image = image
