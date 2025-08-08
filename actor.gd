@@ -3,6 +3,7 @@ class_name Actor
 
 @onready var sprite: TextureRect = %Image
 @onready var selection_highlight: ColorRect = %SelectionHighlight
+@onready var control: Control = %Control
 
 signal selected
 
@@ -16,6 +17,11 @@ var image: Image:
 		return sprite.texture.get_image()
 	set(new_image):
 		sprite.texture = ImageTexture.create_from_image(new_image)
+
+
+var selection_hitbox: Rect2:
+	get:
+		return control.get_global_rect()
 
 
 func _on_control_gui_input(event: InputEvent) -> void:

@@ -5,6 +5,18 @@ const ActorScene = preload("res://actor.tscn")
 
 var camera := StageCamera.new()
 
+var is_drag_selecting := false
+var drag_select_start := Vector2()
+var drag_select_end := Vector2()
+@onready var drag_selection: Control = %DragSelection
+
+var drag_select_rect: Rect2:
+	get:
+		return Rect2(
+			drag_select_start,
+			drag_select_end - drag_select_start,
+		).abs()
+
 func _process(delta: float) -> void:
 	transform = transform.interpolate_with(
 		Transform2D()
@@ -13,42 +25,101 @@ func _process(delta: float) -> void:
 		delta * camera.stiffness,
 	)
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.is_pressed():
-			match event.button_index:
-				MOUSE_BUTTON_LEFT:
-					select_actors([])
-					get_viewport().set_input_as_handled()
-				MOUSE_BUTTON_WHEEL_UP:
-					camera.update_zoom(1, event.position)
-					get_viewport().set_input_as_handled()
-				MOUSE_BUTTON_WHEEL_DOWN:
-					camera.update_zoom(-1, event.position)
-					get_viewport().set_input_as_handled()
+	if is_drag_selecting:
+		drag_selection.visible = true
+		drag_selection.position = drag_select_rect.position
+		drag_selection.size = drag_select_rect.size
+	else:
+		drag_selection.visible = false
 
-	elif event is InputEventMouseMotion:
+
+func _unhandled_input(event: InputEvent) -> void:
+	var handled := (
+		_handle_mouse_drag_select(event)
+		or _handle_mouse_pan(event)
+		or _handle_wheel_zoom(event)
+		or _handle_touch_pan(event)
+		or _handle_touch_zoom(event)
+	)
+
+	if handled:
+		get_viewport().set_input_as_handled()
+
+func _handle_mouse_drag_select(event: InputEvent) -> bool:
+	# drag select
+	if event is InputEventMouseButton:
+		if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
+			select_actors([])
+			is_drag_selecting = true
+			drag_select_start = event.global_position
+			drag_select_end = event.global_position
+			return true
+
+		if event.is_released() and event.button_index == MOUSE_BUTTON_LEFT:
+			is_drag_selecting = false
+			return true
+
+	if event is InputEventMouseMotion:
+		if event.button_mask & MOUSE_BUTTON_MASK_LEFT:
+			if is_drag_selecting:
+				drag_select_end = event.global_position
+
+				var selected_actors: Array[Actor] = []
+				for node in get_children():
+					if node is Actor and node.selection_hitbox.intersects(drag_select_rect):
+							selected_actors.append(node)
+
+				select_actors(selected_actors)
+
+			return true
+
+	return false
+
+# right-click panning
+func _handle_mouse_pan(event: InputEvent) -> bool:
+	if event is InputEventMouseMotion:
 		if event.button_mask & MOUSE_BUTTON_MASK_RIGHT:
 			camera.offset += event.relative
-			get_viewport().set_input_as_handled()
+		return true
 
-	elif event is InputEventPanGesture:
+	return false
+
+# touch panning
+func _handle_touch_pan(event: InputEvent) -> bool:
+	if event is InputEventPanGesture:
 		position += event.delta
-		get_viewport().set_input_as_handled()
+		return true
 
-	elif event is InputEventMagnifyGesture:
+	return false
+
+func _handle_wheel_zoom(event: InputEvent) -> bool:
+	if event is InputEventMouseButton: if event.is_pressed():
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			camera.update_zoom(1, event.position)
+			return true
+
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			camera.update_zoom(-1, event.position)
+			return true
+
+	return false
+
+func _handle_touch_zoom(event: InputEvent) -> bool:
+	if event is InputEventMagnifyGesture:
 		camera.update_zoom(event.factor, event.position)
-		get_viewport().set_input_as_handled()
+		return true
+
+	return false
 
 
 func _on_actor_pressed(actor: Actor) -> void:
 	select_actors([actor])
 
 
-func add_actor(image: Image, position: Vector2) -> void:
+func add_actor(image: Image, at_position: Vector2) -> void:
 	var actor: Actor = ActorScene.instantiate()
 	add_child(actor)
-	actor.position = position
+	actor.position = at_position
 	actor.image = image
 	actor.selected.connect(_on_actor_pressed.bind(actor))
 

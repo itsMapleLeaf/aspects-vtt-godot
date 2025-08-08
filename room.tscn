@@ -1,33 +1,45 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0ohj8a240me3"]
+[gd_scene load_steps=5 format=3 uid="uid://c0ohj8a240me3"]
 
 [ext_resource type="Script" uid="uid://ds6tdo1nfhtd5" path="res://stage.gd" id="2_ka7wq"]
 [ext_resource type="Script" uid="uid://8506b65pmpuo" path="res://asset_drop_zone.gd" id="4_ka7wq"]
 [ext_resource type="PackedScene" uid="uid://ccraopnohf8uh" path="res://resources_panel.tscn" id="4_v5vuv"]
 
-[node name="Room" type="Node2D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4o3f6"]
+bg_color = Color(0.970055, 0.174937, 0.618534, 0.290196)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.971366, 0.176526, 0.624804, 1)
 
-[node name="Stage" type="Node2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(364, 0)
-script = ExtResource("2_ka7wq")
+[node name="Room" type="Node"]
 
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="HBoxContainer" type="HBoxContainer" parent="UI"]
+[node name="AssetDropZone" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="ResourcesPanel" parent="UI/HBoxContainer" instance=ExtResource("4_v5vuv")]
-custom_minimum_size = Vector2(360, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="AssetDropZone" type="Control" parent="UI/HBoxContainer"]
-z_index = -1
-layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 script = ExtResource("4_ka7wq")
+
+[node name="Stage" type="Node2D" parent="AssetDropZone"]
+unique_name_in_owner = true
+script = ExtResource("2_ka7wq")
+
+[node name="DragSelection" type="Panel" parent="AssetDropZone"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 503.0
+offset_top = 126.0
+offset_right = 703.0
+offset_bottom = 324.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4o3f6")
+
+[node name="ResourcesPanel" parent="." instance=ExtResource("4_v5vuv")]
+custom_minimum_size = Vector2(360, 0)
+offset_right = 8.0
+size_flags_horizontal = 0
+metadata/_edit_lock_ = true
