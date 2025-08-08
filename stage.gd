@@ -44,7 +44,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func _handle_mouse_drag_select(event: InputEvent) -> bool:
-	# drag select
 	if event is InputEventMouseButton:
 		if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
 			select_actors([])
@@ -73,7 +72,6 @@ func _handle_mouse_drag_select(event: InputEvent) -> bool:
 
 	return false
 
-# right-click panning
 func _handle_mouse_pan(event: InputEvent) -> bool:
 	if event is InputEventMouseMotion:
 		if event.button_mask & MOUSE_BUTTON_MASK_RIGHT:
@@ -82,7 +80,6 @@ func _handle_mouse_pan(event: InputEvent) -> bool:
 
 	return false
 
-# touch panning
 func _handle_touch_pan(event: InputEvent) -> bool:
 	if event is InputEventPanGesture:
 		position += event.delta
