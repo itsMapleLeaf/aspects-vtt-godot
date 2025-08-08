@@ -23,9 +23,11 @@ var selection_hitbox: Rect2:
 	get:
 		return control.get_global_rect()
 
+func _ready() -> void:
+	control.mouse_filter = Control.MOUSE_FILTER_PASS
+
 
 func _on_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 			selected.emit()
-			get_viewport().set_input_as_handled()

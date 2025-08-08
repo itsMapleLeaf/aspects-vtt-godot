@@ -4,7 +4,6 @@
 
 ## stage
 
-- drag selected actors
 - drag file on stage to import asset + add actor
 - resizable actors
 - fixed default actor size
