@@ -8,6 +8,33 @@ var camera := StageCamera.new()
 var is_dragging_actors := false
 var actor_drag_offset := Vector2.ZERO
 
+
+func add_actor(image: Image, at_position: Vector2) -> void:
+	var actor: Actor = preload("res://actor.tscn").instantiate()
+	add_child(actor)
+	actor.position = at_position
+	actor.image = image
+	actor.selected.connect(_on_actor_pressed.bind(actor))
+
+
+func _on_actor_pressed(actor: Actor) -> void:
+	if not actor.is_selected:
+		select_actors([actor])
+
+
+func get_actors() -> Array[Actor]:
+	var result: Array[Actor] = []
+	for node in get_children():
+		if node is Actor:
+			result.append(node)
+	return result
+
+
+func select_actors(actors: Array[Actor]) -> void:
+	for actor in get_actors():
+		actor.is_selected = actors.has(actor)
+
+
 func _process(delta: float) -> void:
 	transform = transform.interpolate_with(
 		Transform2D()
@@ -23,10 +50,10 @@ func _unhandled_input(event: InputEvent) -> void:
 				var clicked_actor := false
 				var started_drag := false
 
-				for node in get_children():
-					if node is Actor and node.selection_hitbox.has_point(event.global_position):
+				for actor in get_actors():
+					if actor.selection_hitbox.has_point(event.global_position):
 						clicked_actor = true
-						if node.is_selected:
+						if actor.is_selected:
 							is_dragging_actors = true
 							actor_drag_offset = to_local(event.global_position)
 							started_drag = true
@@ -60,17 +87,17 @@ func _unhandled_input(event: InputEvent) -> void:
 				var now_local := to_local(event.global_position)
 				var delta_local := now_local - actor_drag_offset
 				if delta_local != Vector2.ZERO:
-					for node in get_children():
-						if node is Actor and node.is_selected:
-							node.position += delta_local
+					for actor in get_actors():
+						if actor.is_selected:
+							actor.position += delta_local
 					actor_drag_offset = now_local
 				get_viewport().set_input_as_handled()
 			else:
 				if drag_selection.continue_selecting(event.global_position):
 					var selected_actors: Array[Actor] = []
-					for node in get_children():
-						if node is Actor and node.selection_hitbox.intersects(drag_selection.drag_select_rect):
-							selected_actors.append(node)
+					for actor in get_actors():
+						if actor.selection_hitbox.intersects(drag_selection.drag_select_rect):
+							selected_actors.append(actor)
 
 					select_actors(selected_actors)
 					get_viewport().set_input_as_handled()
@@ -86,22 +113,3 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event is InputEventMagnifyGesture:
 		camera.update_zoom(event.factor, event.position)
 		get_viewport().set_input_as_handled()
-
-
-func _on_actor_pressed(actor: Actor) -> void:
-	if not actor.is_selected:
-		select_actors([actor])
-
-
-func add_actor(image: Image, at_position: Vector2) -> void:
-	var actor: Actor = preload("res://actor.tscn").instantiate()
-	add_child(actor)
-	actor.position = at_position
-	actor.image = image
-	actor.selected.connect(_on_actor_pressed.bind(actor))
-
-
-func select_actors(actors: Array[Actor]) -> void:
-	for actor in get_children():
-		if actor is Actor:
-			actor.is_selected = actors.has(actor)
