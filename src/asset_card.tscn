@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://2mt7ksm42u1t"]
 
-[ext_resource type="Script" uid="uid://b460q78dxoqtq" path="res://ratio_container.gd" id="1_gmx6y"]
+[ext_resource type="Script" uid="uid://b460q78dxoqtq" path="res://src/ratio_container.gd" id="1_gmx6y"]
 [ext_resource type="Texture2D" uid="uid://kqqirfsu5wvy" path="res://assets/riley.png" id="2_aj7v8"]
-[ext_resource type="Script" uid="uid://bm3hahgih5hqd" path="res://asset_card.gd" id="3_aj7v8"]
+[ext_resource type="Script" uid="uid://bm3hahgih5hqd" path="res://src/asset_card.gd" id="3_aj7v8"]
 
 [sub_resource type="Gradient" id="Gradient_l08au"]
 offsets = PackedFloat32Array(0.005, 1)

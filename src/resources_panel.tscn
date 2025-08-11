@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=4 uid="uid://ccraopnohf8uh"]
 
-[ext_resource type="PackedScene" uid="uid://2mt7ksm42u1t" path="res://asset_card.tscn" id="1_kdkql"]
+[ext_resource type="PackedScene" uid="uid://2mt7ksm42u1t" path="res://src/asset_card.tscn" id="1_kdkql"]
 
 [sub_resource type="Image" id="Image_wpkl3"]
 data = {

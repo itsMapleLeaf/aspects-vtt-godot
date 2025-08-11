@@ -10,7 +10,7 @@ var actor_drag_offset := Vector2.ZERO
 
 
 func add_actor(image: Image, at_position: Vector2) -> void:
-	var actor: Actor = preload("res://actor.tscn").instantiate()
+	var actor: Actor = preload("res://src/actor.tscn").instantiate()
 	add_child(actor)
 	actor.position = at_position
 	actor.image = image

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bqj6n7i3i2p4l"]
 
-[ext_resource type="Script" uid="uid://de0p4qnuwg856" path="res://actor.gd" id="1_hr3hk"]
+[ext_resource type="Script" uid="uid://de0p4qnuwg856" path="res://src/actor.gd" id="1_hr3hk"]
 [ext_resource type="Texture2D" uid="uid://kqqirfsu5wvy" path="res://assets/riley.png" id="2_oka2p"]
 
 [node name="Actor" type="Node2D"]
