@@ -11,5 +11,5 @@ func _drop_data(at_position: Vector2, data_arg: Variant) -> void:
 	stage.add_actor(
 		data.asset.get_image(),
 		(at_position - stage.camera.offset + position)
-		/ stage.camera.zoom_scale,
+			/ stage.camera.zoom_scale,
 	)
